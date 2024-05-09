@@ -14,7 +14,7 @@ interface User {
   items: any[];
 }
 
-type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink }
+type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" }
 
 function App() {
   const [drinks, setDrinks] = useState<Drink[]>([
@@ -57,6 +57,9 @@ function App() {
       case "DELETE_DRINK":
         temp.drinks = temp.drinks.filter((drink, index) => drink !== action.drink);
         break;
+      case "RESET_DRINK":
+        temp.drinks = []
+        break;
       default:
         break;
     }
@@ -96,6 +99,9 @@ function App() {
   function DeleteDrink(drink: Drink) {
     dispatch({ type: "DELETE_DRINK", drink: drink })
   }
+  function resetDrink() {
+    dispatch({ type: "RESET_DRINK" })
+  }
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -128,9 +134,8 @@ function App() {
           return <button onClick={() => selectDrink(drink)}>{drink.name} 선택</button>
         })
       }
-
-      {/* 음료수 비우기 버튼 => 실행 */}
-      {/* 선택한 음료수만 빼기 */}
+      <hr />
+      <button onClick={resetDrink}>음료수 다 빼기</button>
       <ul>
         {drinkMachine.drinks.map((drink, index) => <li>이름 : {drink.name}, 가격 : {drink.price} <button onClick={() => { DeleteDrink(drink) }}>빼기</button></li>)}
       </ul>
