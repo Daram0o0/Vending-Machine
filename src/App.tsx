@@ -88,7 +88,7 @@ function App() {
     dispatch({ type: "RESET" })
   }
   function selectDrink(drink: Drink) {
-    dispatch({ type: "SELECT_DRINK", value: drink })
+    dispatch({ type: "SELECT_DRINK", value: { ...drink } })
   }
   function addDrink(drink: Drink) {
     setDrinks([...drinks, drink])
@@ -130,7 +130,7 @@ function App() {
 
 
       {
-        drinks.map((drink) => {
+        drinks.filter(val => val.isActive === true).map((drink) => {
           return <button onClick={() => selectDrink(drink)}>{drink.name} 선택</button>
         })
       }
