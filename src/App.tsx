@@ -105,7 +105,7 @@ function App() {
     setIsActive(false);
   }
   function DeleteDrink(drink: Drink) {
-    dispatch({ type: "DELETE_DRINK", drink: drink })
+    dispatch({ type: "DELETE_DRINK", drink: {...drink} })
   }
   function resetDrink() {
     dispatch({ type: "RESET_DRINK" })
