@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import './App.css';
 interface DrinkMachine {
   drinks: Drink[];
@@ -14,7 +14,7 @@ interface User {
   items: any[];
 }
 
-type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "ADD_DRINK", value: Drink }
+type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink }
 
 function App() {
   const [drinks, setDrinks] = useState<Drink[]>([
@@ -49,11 +49,14 @@ function App() {
         break;
       case "RESET":
         temp.money = 0
-        break
+        break;
       case "SELECT_DRINK":
         temp.drinks = [...prev.drinks, action.value]
         temp.money = prev.money - action.value.price
-        break
+        break;
+      case "DELETE_DRINK":
+        temp.drinks = temp.drinks.filter((drink, index) => drink !== action.drink);
+        break;
       default:
         break;
     }
@@ -66,8 +69,17 @@ function App() {
     money: 0,
   })
 
+  useEffect(() => {
+    console.log(drinkMachine);
+  }, [drinkMachine.drinks]);
+
+  const [inputMoney, setInputMoney] = useState<number>(0);
+
   function add500() {
     dispatch({ type: "INSERT_COIN", value: 500 })
+  }
+  function Addnumber() {
+    dispatch({ type: "INSERT_COIN", value: inputMoney });
   }
   function resetCoin() {
     dispatch({ type: "RESET" })
@@ -81,6 +93,9 @@ function App() {
     setPrice('');
     setIsActive(false);
   }
+  function DeleteDrink(drink: Drink) {
+    dispatch({ type: "DELETE_DRINK", drink: drink })
+  }
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -90,7 +105,12 @@ function App() {
     <div>
       <h2>잔액 : {drinkMachine.money}</h2>
       <button onClick={add500}>500원 투입</button>
-      {/* 500원 투입이 아닌 input과 투입 같이둬서 원하는 금액으로 투입가능하게 하기 */}
+      <input
+        type="number"
+        value={inputMoney}
+        onChange={(e) => setInputMoney(Number(e.target.value))}
+      />
+      <button onClick={Addnumber}>금액 투입</button>
       <button onClick={resetCoin}>동전 반환</button>
       <hr />
       <label>이름</label>
@@ -112,9 +132,7 @@ function App() {
       {/* 음료수 비우기 버튼 => 실행 */}
       {/* 선택한 음료수만 빼기 */}
       <ul>
-        {drinkMachine.drinks.map((drink) => {
-          return <li>{drink.name}</li>
-        })}
+        {drinkMachine.drinks.map((drink, index) => <li>이름 : {drink.name}, 가격 : {drink.price} <button onClick={() => { DeleteDrink(drink) }}>빼기</button></li>)}
       </ul>
     </div >
   );
