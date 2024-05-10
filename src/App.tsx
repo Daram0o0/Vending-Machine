@@ -9,37 +9,46 @@ interface Drink {
   name: string;
   price: number;
   isActive: boolean;
+  image: string | null | undefined
 }
 interface User {
   price: number;
   items: any[];
 }
 
-type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink }
+type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" }
 
 function App() {
   const [drinks, setDrinks] = useState<Drink[]>([
     {
       name: "콜라",
       price: 1500,
-      isActive: true
+      isActive: true,
+      image: null,
     },
     {
       name: "사이다",
       price: 1600,
-      isActive: false
+      isActive: false,
+      image: null,
     },
     {
       name: "환타",
       price: 1800,
-      isActive: false
+      isActive: false,
+      image: null,
     },
     {
       name: "암바사",
       price: 2000,
-      isActive: true
+      isActive: true,
+      image: null,
     },
   ])
+
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [isActive, setIsActive] = useState(false);
 
 
   function drinkReducer(prev: DrinkMachine, action: DrinkMachineAction) {
@@ -61,6 +70,9 @@ function App() {
         temp.drinks = temp.drinks.filter((drink, index) => drink !== action.drink);
         temp.totalPrice = temp.totalPrice - action.drink.price
         break;
+      case "RESET_DRINK":
+        temp.drinks = []
+        break;
       default:
         break;
     }
@@ -75,7 +87,7 @@ function App() {
   })
 
   useEffect(() => {
-    console.log(drinkMachine);
+    console.log(drinkMachine.drinks);
   }, [drinkMachine.drinks]);
 
   const [inputMoney, setInputMoney] = useState<number>(0);
@@ -90,22 +102,30 @@ function App() {
     dispatch({ type: "RESET" })
   }
   function selectDrink(drink: Drink) {
-    dispatch({ type: "SELECT_DRINK", value: {...drink} })
-    
+    if (drinkMachine.money >= drink.price) {
+      dispatch({ type: "SELECT_DRINK", value: {...drink} })
+    } else {
+      alert("잔돈이 없습니다.")
+    }
   }
   function addDrink(drink: Drink) {
     setDrinks([...drinks, drink])
     setName('');
     setPrice('');
     setIsActive(false);
+    setImage('')
   }
   function DeleteDrink(drink: Drink) {
     dispatch({ type: "DELETE_DRINK", drink: drink })
+  }
+  function resetDrink() {
+    dispatch({ type: "RESET_DRINK" })
   }
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [isActive, setIsActive] = useState(false);
+  const [image, setImage] = useState<string | null | undefined>(null);
 
   return (
     <div>
@@ -125,19 +145,35 @@ function App() {
       <input placeholder='음료수 가격' value={price} onChange={(e) => setPrice(e.target.value)} />
       <label>활성화</label>
       <input type='checkbox' checked={isActive} onChange={(e) => setIsActive(e.target.checked)} />
-      <button onClick={() => addDrink({ name: name, price: parseInt(price), isActive: isActive })}>입력</button>
+      <label htmlFor="file">사진첨부</label>
+      <input type='file' accept="image/*" onChange={(e) => {
+        const file = e.target.files ? e.target.files[0] : null;
+        if (file) {
+          setImage(URL.createObjectURL(file));
+        }
+      }} />
+      {image && <img style={{
+        height: "50px", width: "300px"
+      }} src={image} alt="Preview" />}
+      <button onClick={() => addDrink({ name: name, price: parseInt(price), isActive: isActive, image: image })}>입력</button>
       <hr />
 
-
-      {
-        drinks.map((drink) => {
-          return <button onClick={() => selectDrink(drink)}>{drink.name} 선택</button>
-        })
-      }
-      <h2>총 금액: {drinkMachine.totalPrice}</h2>
-      
-      {/* 음료수 비우기 버튼 => 실행 */}
-      {/* 선택한 음료수만 빼기 */}
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        {
+          drinks.filter(val => val.isActive === true).map((drink) => {
+            return <div style={{ display: "flex", flexDirection: "column", width: "100px" }}>
+              <img
+                style={{ height: "50px", width: "300px" }}
+                src={drink.image ? drink.image : undefined}
+                alt="Preview"
+              />
+              <button onClick={() => selectDrink(drink)}>{drink.name} 선택</button></div>
+          })
+        }
+        <h2>총 금액: {drinkMachine.totalPrice}</h2>
+      </div>
+      <hr />
+      <button onClick={resetDrink}>음료수 다 빼기</button>
       <ul>
         {drinkMachine.drinks.map((drink, index) => <li>이름 : {drink.name}, 가격 : {drink.price} <button onClick={() => { DeleteDrink(drink) }}>빼기</button></li>)}
       </ul>
