@@ -8,6 +8,7 @@ interface Drink {
   name: string;
   price: number;
   isActive: boolean;
+  image: string | null | undefined
 }
 interface User {
   price: number;
@@ -21,22 +22,26 @@ function App() {
     {
       name: "콜라",
       price: 1500,
-      isActive: true
+      isActive: true,
+      image: null,
     },
     {
       name: "사이다",
       price: 1600,
-      isActive: false
+      isActive: false,
+      image: null,
     },
     {
       name: "환타",
       price: 1800,
-      isActive: false
+      isActive: false,
+      image: null,
     },
     {
       name: "암바사",
       price: 2000,
-      isActive: true
+      isActive: true,
+      image: null,
     },
   ])
 
@@ -103,6 +108,7 @@ function App() {
     setName('');
     setPrice('');
     setIsActive(false);
+    setImage('')
   }
   function DeleteDrink(drink: Drink) {
     dispatch({ type: "DELETE_DRINK", drink: drink })
@@ -110,6 +116,11 @@ function App() {
   function resetDrink() {
     dispatch({ type: "RESET_DRINK" })
   }
+
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [isActive, setIsActive] = useState(false);
+  const [image, setImage] = useState<string | null | undefined>(null);
 
   return (
     <div>
@@ -129,15 +140,32 @@ function App() {
       <input placeholder='음료수 가격' value={price} onChange={(e) => setPrice(e.target.value)} />
       <label>활성화</label>
       <input type='checkbox' checked={isActive} onChange={(e) => setIsActive(e.target.checked)} />
-      <button onClick={() => addDrink({ name: name, price: parseInt(price), isActive: isActive })}>입력</button>
+      <label htmlFor="file">사진첨부</label>
+      <input type='file' accept="image/*" onChange={(e) => {
+        const file = e.target.files ? e.target.files[0] : null;
+        if (file) {
+          setImage(URL.createObjectURL(file));
+        }
+      }} />
+      {image && <img style={{
+        height: "50px", width: "300px"
+      }} src={image} alt="Preview" />}
+      <button onClick={() => addDrink({ name: name, price: parseInt(price), isActive: isActive, image: image })}>입력</button>
       <hr />
 
-
-      {
-        drinks.map((drink) => {
-          return <button onClick={() => selectDrink(drink)}>{drink.name} 선택</button>
-        })
-      }
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        {
+          drinks.filter(val => val.isActive === true).map((drink) => {
+            return <div style={{ display: "flex", flexDirection: "column", width: "100px" }}>
+              <img
+                style={{ height: "50px", width: "300px" }}
+                src={drink.image ? drink.image : undefined}
+                alt="Preview"
+              />
+              <button onClick={() => selectDrink(drink)}>{drink.name} 선택</button></div>
+          })
+        }
+      </div>
       <hr />
       <button onClick={resetDrink}>음료수 다 빼기</button>
       <ul>
