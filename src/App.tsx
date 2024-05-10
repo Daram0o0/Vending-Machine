@@ -45,6 +45,10 @@ function App() {
     },
   ])
 
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [isActive, setIsActive] = useState(false);
+
 
   function drinkReducer(prev: DrinkMachine, action: DrinkMachineAction) {
     const temp = { ...prev }
@@ -78,7 +82,7 @@ function App() {
   })
 
   useEffect(() => {
-    console.log(drinkMachine);
+    console.log(drinkMachine.drinks);
   }, [drinkMachine.drinks]);
 
   const [inputMoney, setInputMoney] = useState<number>(0);
@@ -93,7 +97,11 @@ function App() {
     dispatch({ type: "RESET" })
   }
   function selectDrink(drink: Drink) {
-    dispatch({ type: "SELECT_DRINK", value: { ...drink } })
+    if (drinkMachine.money >= drink.price) {
+      dispatch({ type: "SELECT_DRINK", value: {...drink} })
+    } else {
+      alert("잔돈이 없습니다.")
+    }
   }
   function addDrink(drink: Drink) {
     setDrinks([...drinks, drink])
