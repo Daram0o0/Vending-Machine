@@ -1,22 +1,20 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import './App.css';
+
 interface DrinkMachine {
   drinks: Drink[];
   money: number;
   totalPrice: number;
 }
+
 interface Drink {
   name: string;
   price: number;
   isActive: boolean;
-  image: string | null | undefined
-}
-interface User {
-  price: number;
-  items: any[];
+  image: string | null | undefined;
 }
 
-type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" }
+type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" };
 
 function App() {
   const [drinks, setDrinks] = useState<Drink[]>([
@@ -44,47 +42,46 @@ function App() {
       isActive: true,
       image: null,
     },
-  ])
+  ]);
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [isActive, setIsActive] = useState(false);
-
+  const [image, setImage] = useState<string | null | undefined>(null);
 
   function drinkReducer(prev: DrinkMachine, action: DrinkMachineAction) {
-    const temp = { ...prev }
+    const temp = { ...prev };
     switch (action.type) {
       case "INSERT_COIN":
         temp.money = prev.money + action.value;
         break;
       case "RESET":
-        temp.money = 0
-        temp.totalPrice = 0
+        temp.money = 0;
+        temp.totalPrice = 0;
         break;
       case "SELECT_DRINK":
-        temp.drinks = [...prev.drinks, action.value]
-        temp.money = prev.money - action.value.price
-        temp.totalPrice = prev.totalPrice + action.value.price
+        temp.drinks = [...prev.drinks, action.value];
+        temp.money = prev.money - action.value.price;
+        temp.totalPrice = prev.totalPrice + action.value.price;
         break;
       case "DELETE_DRINK":
-        temp.drinks = temp.drinks.filter((drink, index) => drink !== action.drink);
-        temp.totalPrice = temp.totalPrice - action.drink.price
+        temp.drinks = temp.drinks.filter((drink) => drink !== action.drink);
+        temp.totalPrice = temp.totalPrice - action.drink.price;
         break;
       case "RESET_DRINK":
-        temp.drinks = []
+        temp.drinks = [];
         break;
       default:
         break;
     }
-    return temp
-
+    return temp;
   }
 
   const [drinkMachine, dispatch] = useReducer(drinkReducer, {
     drinks: [],
     money: 0,
     totalPrice: 0,
-  })
+  });
 
   useEffect(() => {
     console.log(drinkMachine.drinks);
@@ -93,39 +90,48 @@ function App() {
   const [inputMoney, setInputMoney] = useState<number>(0);
 
   function add500() {
-    dispatch({ type: "INSERT_COIN", value: 500 })
+    dispatch({ type: "INSERT_COIN", value: 500 });
   }
+
   function Addnumber() {
     dispatch({ type: "INSERT_COIN", value: inputMoney });
   }
+
   function resetCoin() {
-    dispatch({ type: "RESET" })
+    dispatch({ type: "RESET" });
   }
+
   function selectDrink(drink: Drink) {
     if (drinkMachine.money >= drink.price) {
-      dispatch({ type: "SELECT_DRINK", value: {...drink} })
+      dispatch({ type: "SELECT_DRINK", value: { ...drink } });
     } else {
-      alert("잔돈이 없습니다.")
+      alert("잔돈이 없습니다.");
     }
   }
+
   function addDrink(drink: Drink) {
-    setDrinks([...drinks, drink])
+    setDrinks([...drinks, drink]);
     setName('');
     setPrice('');
     setIsActive(false);
-    setImage('')
-  }
-  function DeleteDrink(drink: Drink) {
-    dispatch({ type: "DELETE_DRINK", drink: drink })
-  }
-  function resetDrink() {
-    dispatch({ type: "RESET_DRINK" })
+    setImage('');
   }
 
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [isActive, setIsActive] = useState(false);
-  const [image, setImage] = useState<string | null | undefined>(null);
+  function DeleteDrink(drink: Drink) {
+    dispatch({ type: "DELETE_DRINK", drink: drink });
+  }
+
+  function resetDrink() {
+    dispatch({ type: "RESET_DRINK" });
+  }
+
+  const totalPrice = useMemo(() => {
+    if (drinkMachine.drinks.length === 0) {
+      return 0;
+    } else {
+      return drinkMachine.drinks.reduce((prev, current) => prev + current.price, 0); // 콜백 함수 형식 수정
+    }
+  }, [drinkMachine.drinks]);
 
   return (
     <div>
@@ -170,12 +176,12 @@ function App() {
               <button onClick={() => selectDrink(drink)}>{drink.name} 선택</button></div>
           })
         }
-        <h2>총 금액: {drinkMachine.totalPrice}</h2>
+        <h2>총 금액: {totalPrice}</h2> {/* totalPrice 변수 사용 */}
       </div>
       <hr />
       <button onClick={resetDrink}>음료수 다 빼기</button>
       <ul>
-        {drinkMachine.drinks.map((drink, index) => <li>이름 : {drink.name}, 가격 : {drink.price} <button onClick={() => { DeleteDrink(drink) }}>빼기</button></li>)}
+        {drinkMachine.drinks.map((drink, index) => <li key={index}>이름 : {drink.name}, 가격 : {drink.price} <button onClick={() => { DeleteDrink(drink) }}>빼기</button></li>)}
       </ul>
     </div >
   );
