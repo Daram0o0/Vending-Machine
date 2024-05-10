@@ -77,7 +77,7 @@ function App() {
   })
 
   useEffect(() => {
-    console.log(drinkMachine);
+    console.log(drinkMachine.drinks);
   }, [drinkMachine.drinks]);
 
   const [inputMoney, setInputMoney] = useState<number>(0);
@@ -93,7 +93,7 @@ function App() {
   }
   function selectDrink(drink: Drink) {
     if (drinkMachine.money >= drink.price) {
-      dispatch({ type: "SELECT_DRINK", value: drink })
+      dispatch({ type: "SELECT_DRINK", value: {...drink} })
     } else {
       alert("잔돈이 없습니다.")
     }
@@ -105,7 +105,7 @@ function App() {
     setIsActive(false);
   }
   function DeleteDrink(drink: Drink) {
-    dispatch({ type: "DELETE_DRINK", drink: {...drink} })
+    dispatch({ type: "DELETE_DRINK", drink: drink })
   }
   function resetDrink() {
     dispatch({ type: "RESET_DRINK" })
