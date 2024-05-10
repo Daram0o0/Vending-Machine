@@ -3,6 +3,7 @@ import './App.css';
 interface DrinkMachine {
   drinks: Drink[];
   money: number;
+  totalPrice: number;
 }
 interface Drink {
   name: string;
@@ -58,13 +59,16 @@ function App() {
         break;
       case "RESET":
         temp.money = 0
+        temp.totalPrice = 0
         break;
       case "SELECT_DRINK":
         temp.drinks = [...prev.drinks, action.value]
         temp.money = prev.money - action.value.price
+        temp.totalPrice = prev.totalPrice + action.value.price
         break;
       case "DELETE_DRINK":
         temp.drinks = temp.drinks.filter((drink, index) => drink !== action.drink);
+        temp.totalPrice = temp.totalPrice - action.drink.price
         break;
       case "RESET_DRINK":
         temp.drinks = []
@@ -79,6 +83,7 @@ function App() {
   const [drinkMachine, dispatch] = useReducer(drinkReducer, {
     drinks: [],
     money: 0,
+    totalPrice: 0,
   })
 
   useEffect(() => {
@@ -165,6 +170,7 @@ function App() {
               <button onClick={() => selectDrink(drink)}>{drink.name} 선택</button></div>
           })
         }
+        <h2>총 금액: {drinkMachine.totalPrice}</h2>
       </div>
       <hr />
       <button onClick={resetDrink}>음료수 다 빼기</button>
