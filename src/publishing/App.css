@@ -1,0 +1,119 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:root {
+  /* Color */
+  --black-color: #000000;
+  --white-color: #fff;
+  --gray-color: #E0E2E0;  
+
+  /* Size */
+  --padding: 24px;
+  --margin: 12px;
+
+  /* Font Size */
+  --font-large: 18px;
+  --font-medium: 14px;
+  --font-small: 12px;
+  --font-micro: 10px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.item {
+  border: 1px solid var(--black-color);
+  border-radius: 10px;
+  padding: var(--padding);
+  margin: auto;
+  width: 150px;
+  height: 100px;
+}
+
+.userMenu{
+  margin: 12px 0px 12px 12px;
+  float: left;
+  border: 1px solid var(--black-color);
+  border-radius: 10px;
+  padding: var(--padding);
+  background-color: var(--gray-color);
+}
+
+.userChoice {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 24px;
+  justify-items: center;
+}
+
+.login {
+  float: left;
+  border: 1px solid var(--black-color);
+  border-radius: 10px; 
+  width: 150px;
+  height: 130px;
+  padding: var(--padding);
+  margin: var(--margin);
+  background-color: var(--gray-color);
+}
+
+.cart {
+  float: left;
+  border: 1px solid var(--black-color);
+  border-radius: 10px;   
+  width: 150px;
+  height: 280px;
+  padding: var(--padding);
+  margin: 0px 12px 12px 12px;
+  background-color: var(--gray-color);
+}
+
+.login .profile {
+  float: right;
+  border: 1px solid var(--black-color);
+  border-radius: 50%; 
+  padding: var(--padding);
+  width: 48px;
+  height: 48px;
+}
