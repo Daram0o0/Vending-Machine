@@ -128,60 +128,30 @@ function DrinkMachine() {
       <div className="vending-machine">
         <div className="left">
           <div className="drinks">
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-            <div className="item">
-              <img src="/source/thum.jpg"/>
-              <p>콜라</p>
-              <p>1800₩</p>
-            </div>
-            
-
+            <DrinkItem/>
+            <DrinkItem/>
+            <DrinkItem/>
+            <DrinkItem/>
+            <DrinkItem/>
+            <DrinkItem/>
+            <DrinkItem/>
+            <DrinkItem/>
+            <DrinkItem/>
           </div>
         </div>
         <div className="right">
           <div className="user-info">대충 로그인</div>
           <div className="cart">대충 장바구니</div>
         </div>
+      </div>
+    )
+  }
+  function DrinkItem() {
+    return (
+      <div className="item">
+        <img src="/source/thum.jpg"/>
+        <p>콜라</p>
+        <p>1800₩</p>
       </div>
     )
   }
