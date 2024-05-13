@@ -140,8 +140,8 @@ function DrinkMachine() {
           </div>
         </div>
         <div className="right">
-          <div className="user-info">대충 로그인</div>
-          <div className="cart">대충 장바구니</div>
+          <UserInfo/>
+          <Cart/>
         </div>
       </div>
     )
@@ -153,6 +153,17 @@ function DrinkMachine() {
         <p>콜라</p>
         <p>1800₩</p>
       </div>
+    )
+  }
+
+  function UserInfo() {
+    return (
+      <div className="user-info">대충 로그인</div>
+    )
+  }
+  function Cart() {
+    return (
+      <div className="cart">대충 장바구니</div>
     )
   }
 
