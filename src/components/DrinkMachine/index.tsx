@@ -128,15 +128,60 @@ function DrinkMachine() {
       <div className="vending-machine">
         <div className="left">
           <div className="drinks">
-            <DrinkItem/>
-            <DrinkItem/>
-            <DrinkItem/>
-            <DrinkItem/>
-            <DrinkItem/>
-            <DrinkItem/>
-            <DrinkItem/>
-            <DrinkItem/>
-            <DrinkItem/>
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
+            <DrinkItem
+              name="콜라"
+              price={1500}
+              isActive={true}
+              image={null}
+            />
           </div>
         </div>
         <div className="right">
@@ -146,12 +191,12 @@ function DrinkMachine() {
       </div>
     )
   }
-  function DrinkItem() {
+  function DrinkItem(some : Drink) {
     return (
       <div className="item">
-        <img src="/source/thum.jpg"/>
-        <p>콜라</p>
-        <p>1800₩</p>
+        <img src={some.image ? some.image : `/source/thum.jpg`}/>
+        <p>{some.name}</p>
+        <p>{`${some.price}`}₩</p>
       </div>
     )
   }
