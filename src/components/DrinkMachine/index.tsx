@@ -4,6 +4,7 @@ interface DrinkMachine {
     drinks: Drink[];
     money: number;
     totalPrice: number;
+    cart : Drink[];
   }
   interface Drink {
     name: string;
@@ -84,6 +85,7 @@ function DrinkMachine() {
       drinks: [],
       money: 0,
       totalPrice: 0,
+      cart : []
     })
   
     useEffect(() => {
