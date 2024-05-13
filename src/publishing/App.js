@@ -3,8 +3,22 @@ import './App.css';
 
 function App() {
   return (
+    <VendingMachine />
+  )
+}
+
+function VendingMachine() {
+  return(
     <div calssName="vendingMachine">
-      <UserMenu />
+    <UserMenu />
+    <LoginAndCart />
+    </div>
+  )
+}
+
+function LoginAndCart() {
+  return(
+    <div className="loginAndCart">
       <Login />
       <Cart />
     </div>
