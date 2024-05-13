@@ -1,0 +1,41 @@
+body {
+    
+}
+p {
+    margin: 0;
+}
+.vending-machine {
+    display: flex;
+    justify-content: space-around;
+}
+.vending-machine > .left {
+    /* background-color: aqua; */
+    width: 60%;
+}
+.vending-machine > .left > .drinks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* border : 1px solid gray; */
+    flex-wrap: wrap;
+}
+.vending-machine > .left > .drinks > .item {
+    /* background-color: gray; */
+    border: 2px solid gray;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.vending-machine > .left > .drinks > .item > img {
+    width: 64px;
+    height: 64px;
+}
+.vending-machine > .right {
+    width: 30%;
+}
