@@ -191,7 +191,7 @@ function DrinkMachine() {
         </div>
         <div className="right">
           <UserInfo/>
-          <Cart/>
+          <Cart cart={[]} totalPrice={0}/>
         </div>
       </div>
     )
@@ -210,10 +210,22 @@ function DrinkMachine() {
       <div className="user-info">대충 로그인</div>
     )
   }
-  function Cart() {
+  function Cart({ cart, totalPrice }: CartProps) {
     return (
-      <div className="cart">대충 장바구니</div>
-    )
+      <div className="cart">
+        <h3>장바구니</h3>
+        {cart.length === 0 ? (
+          <p>장바구니가 비었습니다.</p>
+        ) : (
+          cart.map((drink, index) => (
+            <div key={index} className="cart-item">
+              <p>{drink.name} - {drink.price}₩</p>
+            </div>
+          ))
+        )}
+        <p>총 금액: {totalPrice}₩</p>
+      </div>
+    );
   }
 
   export default DrinkMachine
