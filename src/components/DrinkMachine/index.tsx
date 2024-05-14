@@ -16,7 +16,10 @@ interface DrinkMachine {
     price: number;
     items: any[];
   }
-  
+  interface CartProps {
+    cart: Drink[];
+    totalPrice: number;
+  }
 type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" }
   
 function DrinkMachine() {
@@ -202,7 +205,6 @@ function DrinkMachine() {
       </div>
     )
   }
-
   function UserInfo() {
     return (
       <div className="user-info">대충 로그인</div>
