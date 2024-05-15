@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import "../../css/vending-machine.css"
 interface DrinkMachine {
     drinks: Drink[];
@@ -10,7 +10,7 @@ interface DrinkMachine {
     name: string;
     price: number;
     isActive: boolean;
-    image: string | null | undefined
+    image: string | null | undefined;
   }
   interface User {
     price: number;
@@ -19,41 +19,10 @@ interface DrinkMachine {
   interface CartProps {
     cart: Drink[];
   }
-type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" }
+type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" } | {type : "CART_ADD_DRINK", drink : Drink}
   
 function DrinkMachine() {
-    const [drinks, setDrinks] = useState<Drink[]>([
-      {
-        name: "콜라",
-        price: 1500,
-        isActive: true,
-        image: null,
-      },
-      {
-        name: "사이다",
-        price: 1600,
-        isActive: false,
-        image: null,
-      },
-      {
-        name: "환타",
-        price: 1800,
-        isActive: false,
-        image: null,
-      },
-      {
-        name: "암바사",
-        price: 2000,
-        isActive: true,
-        image: null,
-      },
-    ])
-  
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [isActive, setIsActive] = useState(false);
-  
-  
+
     function drinkReducer(prev: DrinkMachine, action: DrinkMachineAction) {
       const temp = { ...prev }
       switch (action.type) {
@@ -76,6 +45,9 @@ function DrinkMachine() {
         case "RESET_DRINK":
           temp.drinks = []
           break;
+        case "CART_ADD_DRINK":
+          temp.cart = [...temp.cart, action.drink]
+          break;
         default:
           break;
       }
@@ -87,12 +59,9 @@ function DrinkMachine() {
       drinks: [],
       money: 0,
       totalPrice: 0,
-      cart : []
+      cart : [
+      ]
     })
-  
-    useEffect(() => {
-      console.log(drinkMachine.drinks);
-    }, [drinkMachine.drinks]);
   
     const [inputMoney, setInputMoney] = useState<number>(0);
   
@@ -105,102 +74,49 @@ function DrinkMachine() {
     function resetCoin() {
       dispatch({ type: "RESET" })
     }
-    function selectDrink(drink: Drink) {
-      if (drinkMachine.money >= drink.price) {
-        dispatch({ type: "SELECT_DRINK", value: {...drink} })
-      } else {
-        alert("잔돈이 없습니다.")
-      }
-    }
-    function addDrink(drink: Drink) {
-      setDrinks([...drinks, drink])
-      setName('');
-      setPrice('');
-      setIsActive(false);
-      setImage('')
-    }
+    
     function DeleteDrink(drink: Drink) {
       dispatch({ type: "DELETE_DRINK", drink: drink })
     }
     function resetDrink() {
       dispatch({ type: "RESET_DRINK" })
     }
+
+    function keepDrink(drink : Drink) {
+      dispatch({type : "CART_ADD_DRINK", drink : drink})
+    }
     
     const [image, setImage] = useState<string | null | undefined>(null);
-  
     return (
       <div className="vending-machine">
         <div className="left">
           <div className="drinks">
             <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
-            />
-            <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
-            />
-            <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
-            />
-            <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
-            />
-            <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
-            />
-            <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
-            />
-            <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
-            />
-            <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
-            />
-            <DrinkItem
-              name="콜라"
-              price={1500}
-              isActive={true}
-              image={null}
+              drink={{
+                name : "콜라",
+                isActive : false,
+                image : null,
+                price : 1500,
+              }}
+              onClick={keepDrink}
             />
           </div>
         </div>
         <div className="right">
           <UserInfo/>
-          <Cart cart={[]}/>
+          <Cart cart={drinkMachine.cart}/>
         </div>
       </div>
     )
   }
-  function DrinkItem(some : Drink) {
+  function DrinkItem({drink, onClick} : {drink : Drink, onClick : (drink : Drink) => void}) {
     return (
-      <div className="item">
-        <img src={some.image ? some.image : `/source/thum.jpg`}/>
-        <p>{some.name}</p>
-        <p>{`${some.price}`}₩</p>
+      <div className="item" onClick={() => {
+        onClick(drink)
+      }}>
+        <img src={drink.image ? drink.image : `/source/thum.jpg`}/>
+        <p>{drink.name}</p>
+        <p>{`${drink.price}`}₩</p>
       </div>
     )
   }
