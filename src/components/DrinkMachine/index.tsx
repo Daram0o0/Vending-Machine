@@ -135,9 +135,18 @@ function DrinkMachine() {
           <>
             {cart.map((drink, index) => (
               <div key={index} className="cart-item">
-                <p>{drink.name} - {drink.price}₩</p>
               </div>
             ))}
+            {cart.length > 0 && (
+              <p>
+                {cart[0].name} - {cart[0].price}₩ (x{cart.length})
+              </p>
+            )}
+            <div className="button">
+              <button>+</button>
+              <button>-</button>
+            </div>
+            <p></p>
             <p>총 금액: {cart.reduce((total, drink) => total + drink.price, 0)}₩</p>
           </>
         )}
