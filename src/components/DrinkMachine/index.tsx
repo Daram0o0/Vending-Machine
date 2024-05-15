@@ -18,7 +18,6 @@ interface DrinkMachine {
   }
   interface CartProps {
     cart: Drink[];
-    totalPrice: number;
   }
 type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" }
   
@@ -191,7 +190,7 @@ function DrinkMachine() {
         </div>
         <div className="right">
           <UserInfo/>
-          <Cart cart={[]} totalPrice={0}/>
+          <Cart cart={[]}/>
         </div>
       </div>
     )
@@ -210,20 +209,22 @@ function DrinkMachine() {
       <div className="user-info">대충 로그인</div>
     )
   }
-  function Cart({ cart, totalPrice }: CartProps) {
+  function Cart({ cart }: CartProps) {
     return (
       <div className="cart">
         <h3>장바구니</h3>
         {cart.length === 0 ? (
-          <p>장바구니가 비었습니다.</p>
+          <p>장바구니가 비어있습니다.</p>
         ) : (
-          cart.map((drink, index) => (
-            <div key={index} className="cart-item">
-              <p>{drink.name} - {drink.price}₩</p>
-            </div>
-          ))
+          <>
+            {cart.map((drink, index) => (
+              <div key={index} className="cart-item">
+                <p>{drink.name} - {drink.price}₩</p>
+              </div>
+            ))}
+            <p>총 금액: {cart.reduce((total, drink) => total + drink.price, 0)}₩</p>
+          </>
         )}
-        <p>총 금액: {totalPrice}₩</p>
       </div>
     );
   }
