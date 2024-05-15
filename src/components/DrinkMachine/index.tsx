@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import "../../css/vending-machine.css"
+import { disconnect } from "process";
 interface DrinkMachine {
     drinks: Drink[];
     money: number;
@@ -213,18 +214,26 @@ function DrinkMachine() {
       <div className="cart">
         <strong>장바구니</strong>
         <div className="cartitem">
-          <img src="/source/thum.jpg" alt="" />
-          <p>콜라</p>
-          <p>1500₩</p>
+          <p>콜라 1500₩ <CartButton/></p>
+          <p>제로콜라 2000₩ <CartButton/></p>
+          <p>제로콜라 2000₩ <CartButton/></p>
+          <p>제로콜라 2000₩ <CartButton/></p>
+          <p>-제로콜라 2000₩ <CartButton/></p>
+          <p>-제로콜라 2000₩ <CartButton/></p>
+          <p>-제로콜라 2000₩ <CartButton/></p>
+          <p>제로콜라 2000₩ <CartButton/></p>
+          <p>제로콜라 2000₩ <CartButton/></p>
         </div>
-        <span>
-          <button>+</button>
-          <button>-</button>
-        </span>
-        <strong>개수 :</strong>
         <strong>총 금액 :</strong>
       </div>  
     )
+  }
+
+  function CartButton() {
+    return (
+      
+      <span><button>-</button> 개수 <button>+</button></span>
+    );
   }
 
   export default DrinkMachine
