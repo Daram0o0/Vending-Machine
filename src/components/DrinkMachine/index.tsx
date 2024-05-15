@@ -210,7 +210,23 @@ function DrinkMachine() {
   }
   function Cart() {
     return (
-      <div className="cart">대충 장바구니</div>
+      <div className="cart">
+        <strong>장바구니</strong>
+        <div className="cartitem">콜라 3개</div>
+        <div className="cartitem">주스 2개</div>
+        <div className="cartitem">사이다 1개</div>
+        <div className="cartitem"></div>
+        <div className="cartitem"></div>
+        <div className="cartitem"></div>
+        <div className="cartitem"></div>
+        <div className="cartitem"></div>
+        <div className="cartitem"></div>
+        <strong>총 금액 :</strong>
+        <span>
+          <strong>구매 </strong>
+          <strong>반환</strong>
+        </span>
+      </div>  
     )
   }
 
