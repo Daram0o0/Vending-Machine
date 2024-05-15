@@ -215,16 +215,16 @@ function DrinkMachine() {
         <strong>장바구니</strong>
         <div className="cartitem">
           <p>콜라 1500₩ <CartButton/></p>
-          <p>제로콜라 2000₩ <CartButton/></p>
-          <p>제로콜라 2000₩ <CartButton/></p>
-          <p>제로콜라 2000₩ <CartButton/></p>
-          <p>-제로콜라 2000₩ <CartButton/></p>
-          <p>-제로콜라 2000₩ <CartButton/></p>
-          <p>-제로콜라 2000₩ <CartButton/></p>
-          <p>제로콜라 2000₩ <CartButton/></p>
-          <p>제로콜라 2000₩ <CartButton/></p>
+          <p>제로 콜라 1500₩ <CartButton/></p>
+          <p>제로 사이다 1500₩ <CartButton/></p>
+          <p>환타 1500₩ <CartButton/></p>
+          <p>펩시 1500₩ <CartButton/></p>
+          <p>오렌지 주스 1500₩ <CartButton/></p>
+          <p>포도 주스1500₩ <CartButton/></p>
+          <p>레쓰비 1500₩ <CartButton/></p>
+          <p>초코라떼 1500₩ <CartButton/></p>
         </div>
-        <strong>총 금액 :</strong>
+        <strong>총 금액 : 2000₩</strong>
       </div>  
     )
   }

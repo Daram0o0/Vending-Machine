@@ -67,10 +67,12 @@ p {
     background-color: whitesmoke;
     border : 2px solid gray;
     width:70%;
-    text-align: center;
     font-size: 15px;
-    height: 75%;
-    
+    height: 80%;
     line-height: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
