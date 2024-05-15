@@ -69,6 +69,10 @@ p {
     width:50%;
     text-align: center;
     font-size: 15px;
-    
+    height: 40%;
 }
 
+.vending-machine > .right > .cart > .cartitem > img{
+    width: 64px;
+    height: 64px;
+}
