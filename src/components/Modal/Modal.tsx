@@ -3,11 +3,12 @@ import "./Modal.css";
 
 export default function Modal() {
 
-    const accounts = [
-        { id: 'aaaa', password: '1111', name: '관리자 A'},
-        { id: 'bbbb', password: '2222', name: '관리자 B'},
-        { id: 'cccc', password: '3333', name: '관리자 C'}
-    ];
+    const idA = 'aaaa';
+    const pwA = '1111';
+    const idB = 'bbbb';
+    const pwB = '2222';
+    const idC = 'cccc';
+    const pwC = '3333';
 
     const [modal, setModal] = useState(false);
     const [idValue, setId] = useState('');
@@ -18,12 +19,14 @@ export default function Modal() {
         setModal(!modal)
     }
     const handleLogin = () => {
-        const user = accounts.find(
-            (accounts) => accounts.id === idValue && accounts.password === pwValue
-        );
-        if (user) {
-            setLoginMessage(user.name + '님, 환영합니다.');
-        } else {
+
+        if(idA === idValue && pwA === pwValue){
+            setLoginMessage('관리자 A님, 환영합니다.')
+        }else if(idB === idValue && pwB === pwValue){
+            setLoginMessage('관리자 B님, 환영합니다.')
+        }else if(idC === idValue && pwC === pwValue){
+            setLoginMessage('관리자 C님, 환영합니다.')
+        }else {
             alert('등록되지 않은 계정입니다.');
         }
         toggleModal();
