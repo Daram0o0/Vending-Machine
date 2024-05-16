@@ -101,6 +101,24 @@ function DrinkMachine() {
               }}
               onClick={keepDrink}
             />
+            <DrinkItem
+              drink={{
+                name : "사이다",
+                isActive : false,
+                image : null,
+                price : 1400,
+              }}
+              onClick={keepDrink}
+            />
+            <DrinkItem
+              drink={{
+                name : "암바사",
+                isActive : false,
+                image : null,
+                price : 1200,
+              }}
+              onClick={keepDrink}
+            />
           </div>
         </div>
         <div className="right">
@@ -144,8 +162,7 @@ function DrinkMachine() {
               </p>
             )}
             <div className="button">
-              <button>+</button>
-              <button>-</button>
+              <button>+</button><span>{cart.length}</span><button>-</button>
             </div>
             <p></p>
             <p>총 금액: {cart.reduce((total, drink) => total + drink.price, 0)}₩</p>
