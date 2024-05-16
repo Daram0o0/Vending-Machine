@@ -55,28 +55,41 @@ p {
     background-color: #d9d9d9;
     border : 2px solid gray;
     border-radius: 8px;
-    height : 65%;
+    /* height : 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    font-size: 20px;
+    font-size: 20px; */
+}
+.vending-machine > .right > .cart > h3 {   
+    margin: 0.5em;
+    text-align: center;    
 }
 
-.vending-machine > .right > .cart > .cartitem{
-    background-color: whitesmoke;
-    border : 2px solid gray;
-    width:70%;
-    text-align: center;
-    font-size: 15px;
-    height: 75%;
+.vending-machine > .right > .cart > .list {
+    padding: 0.5em;
     
-    line-height: 25px;
-    /* font-size: 15px;
-    height: 80%;
-    line-height: 25px;
+}
+.vending-machine > .right > .cart > .list > .cart-item.top {
+    font-weight: bold;
+}
+.vending-machine > .right > .cart > .list > .cart-item {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; */
+    justify-content: space-between;
+    padding: 0.5em 0em;
+}
+.vending-machine > .right > .cart > .list > .cart-item > span {
+    text-align: center;
+}
+.vending-machine > .right > .cart > .list > .cart-item > span:nth-child(1) {    
+    width: 2em;
+}
+.vending-machine > .right > .cart > .list > .cart-item > span:nth-child(2) {
+}
+.vending-machine > .right > .cart > .list > .cart-item > span:nth-child(3) {    
+}
+.vending-machine > .right > .cart > .list > .cart-item > span:nth-child(4) {    
+    width: 4em;
 }

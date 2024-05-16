@@ -19,8 +19,9 @@ interface DrinkMachine {
   }
   interface CartProps {
     cart: Drink[];
+    removeDrink : (drink:Drink) => void;
   }
-type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" } | {type : "CART_ADD_DRINK", drink : Drink}
+type DrinkMachineAction = { type: "INSERT_COIN", value: number } | { type: "RESET" } | { type: "SELECT_DRINK", value: Drink } | { type: "DELETE_DRINK", drink: Drink } | { type: "RESET_DRINK" } | {type : "CART_ADD_DRINK", drink : Drink} | {type : "CART_REMOVE_DRINK", drink : Drink}
   
 function DrinkMachine() {
 
@@ -49,6 +50,9 @@ function DrinkMachine() {
         case "CART_ADD_DRINK":
           temp.cart = [...temp.cart, action.drink]
           break;
+        case "CART_REMOVE_DRINK" :
+          temp.cart = temp.cart.filter((drink) => drink !== action.drink)
+          break;
         default:
           break;
       }
@@ -61,6 +65,18 @@ function DrinkMachine() {
       money: 0,
       totalPrice: 0,
       cart : [
+        {
+          name : "암바사",
+          isActive : false,
+          image : null,
+          price : 1200,
+        },
+        {
+          name : "암바사",
+          isActive : false,
+          image : null,
+          price : 1200,
+        },
       ]
     })
   
@@ -85,6 +101,11 @@ function DrinkMachine() {
 
     function keepDrink(drink : Drink) {
       dispatch({type : "CART_ADD_DRINK", drink : drink})
+    }
+
+    function removeCartItem(drink : Drink) {
+      // console.log(drink)
+      dispatch({type : "CART_REMOVE_DRINK", drink})
     }
     
     const [image, setImage] = useState<string | null | undefined>(null);
@@ -123,7 +144,11 @@ function DrinkMachine() {
         </div>
         <div className="right">
           <UserInfo/>
-          <Cart cart={drinkMachine.cart}/>
+          <Cart 
+            cart={drinkMachine.cart}
+            removeDrink={removeCartItem}
+          />
+          <h3>총 금액 : {drinkMachine.cart.reduce((prev, current) => prev + current.price, 0)}</h3>
         </div>
       </div>
     )
@@ -144,32 +169,58 @@ function DrinkMachine() {
       <div className="user-info">대충 로그인</div>
     )
   }
-  function Cart({ cart }: CartProps) {
+  function Cart({ cart, removeDrink }: CartProps) {    
     return (
       <div className="cart">
         <h3>장바구니</h3>
-        {cart.length === 0 ? (
-          <p>장바구니가 비어있습니다.</p>
-        ) : (
-          <>
-            {cart.map((drink, index) => (
-              <div key={index} className="cart-item">
-              </div>
-            ))}
-            {cart.length > 0 && (
-              <p>
-                {cart[0].name} - {cart[0].price}₩ (x{cart.length})
-              </p>
-            )}
-            <div className="button">
-              <button>+</button><span>{cart.length}</span><button>-</button>
-            </div>
-            <p></p>
-            <p>총 금액: {cart.reduce((total, drink) => total + drink.price, 0)}₩</p>
-          </>
-        )}
+        <div className="list">
+          <div className="cart-item top">
+            <span>
+              <p>No</p>
+            </span>
+            <span>
+              <p>상품 이름</p>
+            </span>
+            <span>
+              <p>가격</p>
+            </span>
+
+            <span>
+              <p>기타</p>
+            </span>
+          </div>
+          {
+            cart.length > 0 ?
+            cart.map((drink, index)=> <CartItem
+              drink={drink}
+              index={index}
+              remove={removeDrink}
+            />) : 
+            <div className="no-data">장바구니가 비어있습니다.</div>
+          }
+        </div>
       </div>
     );
+  }
+  function CartItem({remove, drink, index} : {drink : Drink, index : number, remove : (drink : Drink) => void}) {
+    return (
+      <div className="cart-item">
+        <span>
+          <p>{index}</p>
+        </span>
+        <span>
+          <p>{drink.name}</p>
+        </span>
+        <span>
+          <p>{drink.price}</p>
+        </span>        
+        <span>
+          <button onClick={()=>{
+            remove(drink)
+          }}>빼기</button>
+        </span>
+      </div>
+    )
   }
 
   function CartButton() {
