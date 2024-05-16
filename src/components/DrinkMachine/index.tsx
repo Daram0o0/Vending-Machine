@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
 import "../../css/vending-machine.css"
+import { disconnect } from "process";
 interface DrinkMachine {
     drinks: Drink[];
     money: number;
@@ -152,6 +153,12 @@ function DrinkMachine() {
         )}
       </div>
     );
+  }
+
+  function CartButton() {
+    return (
+      <div className="cart">대충 장바구니</div>
+    )
   }
 
   export default DrinkMachine

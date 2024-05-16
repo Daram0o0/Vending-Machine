@@ -72,4 +72,11 @@ p {
     height: 75%;
     
     line-height: 25px;
+    /* font-size: 15px;
+    height: 80%;
+    line-height: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
 }
