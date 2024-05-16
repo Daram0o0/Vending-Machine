@@ -2,13 +2,28 @@ import React, { useState } from "react";
 import "./Modal.css";
 
 export default function Modal() {
-
-    const idA = 'aaaa';
-    const pwA = '1111';
-    const idB = 'bbbb';
-    const pwB = '2222';
-    const idC = 'cccc';
-    const pwC = '3333';
+    const userList = [
+        {
+            id : "aaaa",
+            pw : "1111",
+            name : "관리자"
+        },
+        {
+            id : "bbbb",
+            pw : "1111",
+            name : "A등급 회원"
+        },
+        {
+            id : "cccc",
+            pw : "1111",
+            name : "B등급 회원"
+        },
+        {
+            id : "dddd",
+            pw : "1111",
+            name : "C등급 회원"
+        },
+    ]
 
     const [modal, setModal] = useState(false);
     const [idValue, setId] = useState('');
@@ -19,15 +34,13 @@ export default function Modal() {
         setModal(!modal)
     }
     const handleLogin = () => {
-
-        if(idA === idValue && pwA === pwValue){
-            setLoginMessage('관리자 A님, 환영합니다.')
-        }else if(idB === idValue && pwB === pwValue){
-            setLoginMessage('관리자 B님, 환영합니다.')
-        }else if(idC === idValue && pwC === pwValue){
-            setLoginMessage('관리자 C님, 환영합니다.')
-        }else {
-            alert('등록되지 않은 계정입니다.');
+        const findUser = userList.find(element => {
+            return element.id === idValue
+        })
+        if (findUser) {
+            setLoginMessage(findUser.name + "님 환영 합니다.")
+        } else {
+            alert("ID혹은 패스워드를 확인 하여 주세요")
         }
         toggleModal();
     }
