@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
 import "../../css/vending-machine.css"
-import { disconnect } from "process";
+import Modal from "../Modal/Modal"
+
 interface DrinkMachine {
     drinks: Drink[];
     money: number;
@@ -166,7 +167,7 @@ function DrinkMachine() {
   }
   function UserInfo() {
     return (
-      <div className="user-info">대충 로그인</div>
+      <Modal />
     )
   }
   function Cart({ cart, removeDrink }: CartProps) {    

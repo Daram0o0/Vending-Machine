@@ -4,6 +4,7 @@ body {
 p {
     margin: 0;
 }
+
 .vending-machine {
     display: flex;
     justify-content: space-around;
@@ -43,7 +44,6 @@ p {
     justify-content: space-around;
     width: 30%;
 }
-
 .vending-machine > .right > .user-info {
     background-color: aquamarine;
     border : 2px solid gray;
