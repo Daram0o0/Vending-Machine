@@ -1,6 +1,5 @@
-body {
-    
-}
+body {}
+
 p {
     margin: 0;
 }
@@ -9,19 +8,19 @@ p {
     display: flex;
     justify-content: space-around;
 }
-.vending-machine > .left {
-    /* background-color: aqua; */
+
+.vending-machine>.left {
     width: 60%;
 }
-.vending-machine > .left > .drinks {
+
+.vending-machine>.left>.drinks {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    /* border : 1px solid gray; */
     flex-wrap: wrap;
 }
-.vending-machine > .left > .drinks > .item {
-    /* background-color: gray; */
+
+.vending-machine>.left>.drinks>.item {
     border: 2px solid gray;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -33,63 +32,64 @@ p {
     margin-top: 1em;
     margin-bottom: 1em;
 }
-.vending-machine > .left > .drinks > .item > img {
+
+.vending-machine>.left>.drinks>.item>img {
     width: 64px;
     height: 64px;
 }
-.vending-machine > .right {
-    /*background-color: aqua;*/
+
+.vending-machine>.right {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: 30%;
 }
-.vending-machine > .right > .user-info {
+
+.vending-machine>.right>.user-info {
     background-color: aquamarine;
-    border : 2px solid gray;
+    border: 2px solid gray;
     border-radius: 8px;
     height: 30%;
 }
 
-.vending-machine > .right > .cart{
+.vending-machine>.right>.cart {
     background-color: #d9d9d9;
-    border : 2px solid gray;
+    border: 2px solid gray;
     border-radius: 8px;
-    /* height : 65%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 20px; */
-}
-.vending-machine > .right > .cart > h3 {   
-    margin: 0.5em;
-    text-align: center;    
 }
 
-.vending-machine > .right > .cart > .list {
-    padding: 0.5em;
-    
+.vending-machine>.right>.cart>h3 {
+    margin: 0.5em;
+    text-align: center;
 }
-.vending-machine > .right > .cart > .list > .cart-item.top {
+
+.vending-machine>.right>.cart>.list {
+    padding: 0.5em;
+}
+
+.vending-machine>.right>.cart>.list>.cart-item.top {
     font-weight: bold;
 }
-.vending-machine > .right > .cart > .list > .cart-item {
+
+.vending-machine>.right>.cart>.list>.cart-item {
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 0.5em 0em;
 }
-.vending-machine > .right > .cart > .list > .cart-item > span {
+
+.vending-machine>.right>.cart>.list>.cart-item>span {
     text-align: center;
 }
-.vending-machine > .right > .cart > .list > .cart-item > span:nth-child(1) {    
+
+.vending-machine>.right>.cart>.list>.cart-item>span:nth-child(1) {
     width: 2em;
 }
-.vending-machine > .right > .cart > .list > .cart-item > span:nth-child(2) {
-}
-.vending-machine > .right > .cart > .list > .cart-item > span:nth-child(3) {    
-}
-.vending-machine > .right > .cart > .list > .cart-item > span:nth-child(4) {    
+
+.vending-machine>.right>.cart>.list>.cart-item>span:nth-child(2) {}
+
+.vending-machine>.right>.cart>.list>.cart-item>span:nth-child(3) {}
+
+.vending-machine>.right>.cart>.list>.cart-item>span:nth-child(4) {
     width: 4em;
 }
