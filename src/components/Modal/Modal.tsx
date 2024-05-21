@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "./Modal.css";
+import { useContext } from "react";
+import LoginContext from "../../context/LoginContext";
 
 export default function Modal() {
+    const { setUserName } = useContext(LoginContext)
     const userList = [
         {
             id: "admin",
@@ -39,6 +42,7 @@ export default function Modal() {
             return (element.id === idValue && element.pw === pwValue)
         })
         if (findUser) {
+            setUserName(findUser.name);
             setLoginMessage(findUser.name + "님 환영 합니다.")
         } else {
             alert("ID혹은 패스워드를 확인 하여 주세요")
